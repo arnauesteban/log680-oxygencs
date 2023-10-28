@@ -5,16 +5,18 @@ import os
 import requests
 from signalrcore.hub_connection_builder import HubConnectionBuilder
 
+
 class Main:
     """
-    Class that manages all requests and answer from the server and 
+    Class that manages all requests and answer from the server and
     with the required functions to control the temperature of the room
     """
+
     def __init__(self):
         """Setup environment variables and default values."""
         self._hub_connection = None
         # pylint: disable=C0103
-        #(it unables snack_case restriction for the following variable in the pre-commit hook)
+        # (it unables snack_case restriction for the following variable in the pre-commit hook)
         self.HOST = os.environ.get("OXYGEN_HOST")  # Setup your host here
         self.TOKEN = os.environ.get("OXYGEN_TOKEN")  # Setup your token here
 
@@ -58,10 +60,16 @@ class Main:
         )
 
         self._hub_connection.on("ReceiveSensorData", self.on_sensor_data_received)
-        self._hub_connection.on_open(lambda: print("||| Connection opened.", flush=True))
-        self._hub_connection.on_close(lambda: print("||| Connection closed.", flush=True))
+        self._hub_connection.on_open(
+            lambda: print("||| Connection opened.", flush=True)
+        )
+        self._hub_connection.on_close(
+            lambda: print("||| Connection closed.", flush=True)
+        )
         self._hub_connection.on_error(
-            lambda data: print(f"||| An exception was thrown closed: {data.error}", flush=True)
+            lambda data: print(
+                f"||| An exception was thrown closed: {data.error}", flush=True
+            )
         )
 
     def on_sensor_data_received(self, data):
@@ -69,7 +77,7 @@ class Main:
         # pylint: disable=broad-exception-caught
         try:
             print(data[0]["date"] + " --> " + data[0]["data"], flush=True)
-            #date = data[0]["date"]
+            # date = data[0]["date"]
             temperature = float(data[0]["data"])
             self.take_action(temperature)
         except Exception as err:
@@ -84,7 +92,9 @@ class Main:
 
     def send_action_to_hvac(self, action):
         """Send action query to the HVAC service."""
-        r = requests.get(f"{self.HOST}/api/hvac/{self.TOKEN}/{action}/{self.TICKETS}", timeout=10)
+        r = requests.get(
+            f"{self.HOST}/api/hvac/{self.TOKEN}/{action}/{self.TICKETS}", timeout=10
+        )
         details = json.loads(r.text)
         print(details, flush=True)
 
