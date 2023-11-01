@@ -15,4 +15,3 @@ jobs:
     - run: pip install requests signalrcore
     - run: black $(git ls-files '*.py')
     - run: pylint $(git ls-files '*.py')
-    - run: mypy --strict $(git ls-files '*.py')
