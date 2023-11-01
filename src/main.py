@@ -7,9 +7,13 @@ from signalrcore.hub_connection_builder import HubConnectionBuilder
 
 
 class Main:
+    """
+    Class that manages all requests and answer from the server and
+    with the required functions to control the temperature of the room
+    """
 
     def __init__(self):
-        """Setup environment variables and default values. PRUEBA NO DEBE ACEPTAR"""
+        """Setup environment variables and default values."""
         self._hub_connection = None
         # pylint: disable=C0103
         # (it unables snack_case restriction for the following variable in the pre-commit hook)
