@@ -7,11 +7,6 @@ from signalrcore.hub_connection_builder import HubConnectionBuilder
 
 
 class Main:
-    """
-    Class that manages all requests and answer from the server and
-    with the required functions to control the temperature of the room
-    """
-
     def __init__(self):
         """Setup environment variables and default values."""
         self._hub_connection = None
