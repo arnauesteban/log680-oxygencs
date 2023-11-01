@@ -7,6 +7,7 @@ from signalrcore.hub_connection_builder import HubConnectionBuilder
 
 
 class Main:
+    
     def __init__(self):
         """Setup environment variables and default values."""
         self._hub_connection = None
