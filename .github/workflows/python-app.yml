@@ -3,7 +3,12 @@
 
 name: Python application
 
-on: [push,pull_request]
+on:
+  push:
+  pull_request:
+    types:
+      - opened
+      - closed
 
 permissions:
   contents: read
@@ -22,7 +27,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pipenv pytest pylint black requests signalrcore mysql-connector-python
+        pip install pipenv pytest pylint black requests signalrcore mysql-connector-python requests
     - name: Lint with pylint
       run: pylint $(git ls-files '*.py')
     - name: Format with black
@@ -30,3 +35,6 @@ jobs:
     #- name: Test with pytest
       #run: |
         #pytest
+    - name: Get PR information only if it is accepted to base main
+      id: pr_info
+      run: echo "::set-output name=VERSION::${{ github.event.pull_request.head.ref }}"
