@@ -1,30 +1,63 @@
-# For more information, please refer to https://aka.ms/vscode-docker-python
-FROM python:3.8-slim-buster
+#0 building with "default" instance using docker driver
 
-# Keeps Python from generating .pyc files in the container
-ENV PYTHONDONTWRITEBYTECODE=1
+#1 [internal] load .dockerignore
+#1 transferring context: 409B done
+#1 DONE 0.0s
 
-# Turns off buffering for easier container logging
-ENV PYTHONUNBUFFERED=1
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.11kB done
+#2 DONE 0.0s
 
-# Environment variables
-ENV OXYGEN_HOST="https://hvac-simulator-a23-y2kpq.ondigitalocean.app"
-ENV OXYGEN_TOKEN="QWNTDxtJzo"
+#3 [auth] library/python:pull token for registry-1.docker.io
+#3 DONE 0.0s
 
-# Install pip requirements and clean up in a single RUN command
-RUN set -ex && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends gcc libc-dev && \
-    python -m pip install -r requirements.txt && \
-    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
-    rm -rf /var/lib/apt/lists/* && \
-    adduser -u 5678 --disabled-password --gecos "" appuser && \
-    chown -R appuser /app
-
-USER appuser
-
-WORKDIR /app
-COPY . /app
-
-# During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["python", "src/main.py"]
+#4 [internal] load metadata for docker.io/library/python:3.8-slim-buster
+#7 5.503 Setting up libbinutils:amd64 (2.31.1-16) ...
+#7 5.506 Setting up cpp-8 (8.3.0-6) ...
+#7 5.509 Setting up libc-dev-bin (2.28-10+deb10u2) ...
+#7 5.511 Setting up libcc1-0:amd64 (8.3.0-6) ...
+#7 5.514 Setting up liblsan0:amd64 (8.3.0-6) ...
+#7 5.517 Setting up libitm1:amd64 (8.3.0-6) ...
+#7 5.520 Setting up binutils-x86-64-linux-gnu (2.31.1-16) ...
+#7 5.523 Setting up libtsan0:amd64 (8.3.0-6) ...
+#7 5.529 Setting up binutils (2.31.1-16) ...
+#7 5.531 Setting up libgcc-8-dev:amd64 (8.3.0-6) ...
+#7 5.534 Setting up cpp (4:8.3.0-1) ...
+#7 5.541 Setting up libc6-dev:amd64 (2.28-10+deb10u2) ...
+#7 5.543 Setting up gcc-8 (8.3.0-6) ...
+#7 5.546 Setting up gcc (4:8.3.0-1) ...
+#7 5.555 Processing triggers for libc-bin (2.28-10+deb10u2) ...
+#7 5.587 + python -m pip install -r requirements.txt
+#7 6.665 ERROR: Could not open requirements file: [Errno 2] No such file or directory: 'requirements.txt'
+#7 6.748 
+#7 6.748 [notice] A new release of pip is available: 23.0.1 -> 23.3.1
+#7 6.748 [notice] To update, run: pip install --upgrade pip
+#7 ERROR: process "/bin/sh -c set -ex &&     apt-get update &&     apt-get install -y --no-install-recommends gcc libc-dev &&     python -m pip install -r requirements.txt &&     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false &&     rm -rf /var/lib/apt/lists/* &&     adduser -u 5678 --disabled-password --gecos \"\" appuser &&     chown -R appuser /app" did not complete successfully: exit code: 1
+------
+ > [2/4] RUN set -ex &&     apt-get update &&     apt-get install -y --no-install-recommends gcc libc-dev &&     python -m pip install -r requirements.txt &&     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false &&     rm -rf /var/lib/apt/lists/* &&     adduser -u 5678 --disabled-password --gecos "" appuser &&     chown -R appuser /app:
+5.534 Setting up cpp (4:8.3.0-1) ...
+5.541 Setting up libc6-dev:amd64 (2.28-10+deb10u2) ...
+5.543 Setting up gcc-8 (8.3.0-6) ...
+5.546 Setting up gcc (4:8.3.0-1) ...
+5.555 Processing triggers for libc-bin (2.28-10+deb10u2) ...
+5.587 + python -m pip install -r requirements.txt
+6.665 ERROR: Could not open requirements file: [Errno 2] No such file or directory: 'requirements.txt'
+6.748 
+Notice: 6.748 [notice] A new release of pip is available: 23.0.1 -> 23.3.1
+Notice: 6.748 [notice] To update, run: pip install --upgrade pip
+------
+Dockerfile:15
+--------------------
+  14 |     # Install pip requirements and clean up in a single RUN command
+  15 | >>> RUN set -ex && \
+  16 | >>>     apt-get update && \
+  17 | >>>     apt-get install -y --no-install-recommends gcc libc-dev && \
+  18 | >>>     python -m pip install -r requirements.txt && \
+  19 | >>>     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false && \
+  20 | >>>     rm -rf /var/lib/apt/lists/* && \
+  21 | >>>     adduser -u 5678 --disabled-password --gecos "" appuser && \
+  22 | >>>     chown -R appuser /app
+  23 |     
+--------------------
+ERROR: failed to solve: process "/bin/sh -c set -ex &&     apt-get update &&     apt-get install -y --no-install-recommends gcc libc-dev &&     python -m pip install -r requirements.txt &&     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false &&     rm -rf /var/lib/apt/lists/* &&     adduser -u 5678 --disabled-password --gecos \"\" appuser &&     chown -R appuser /app" did not complete successfully: exit code: 1
+Error: buildx failed with: ERROR: failed to solve: process "/bin/sh -c set -ex &&     apt-get update &&     apt-get install -y --no-install-recommends gcc libc-dev &&     python -m pip install -r requirements.txt &&     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false &&     rm -rf /var/lib/apt/lists/* &&     adduser -u 5678 --disabled-password --gecos \"\" appuser &&     chown -R appuser /app" did not complete successfully: exit code: 1
