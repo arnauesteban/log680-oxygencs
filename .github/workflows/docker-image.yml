@@ -44,5 +44,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/oxygencs:latest, ${{ steps.meta.outputs.created }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/oxygencs:latest, ${{ secrets.DOCKER_USERNAME }}/oxygencs:${{ steps.meta.outputs.created }}
           labels: ${{ steps.meta.outputs.labels }}
