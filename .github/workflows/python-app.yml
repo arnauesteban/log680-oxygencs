@@ -27,7 +27,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pipenv pytest pylint black requests signalrcore mysql-connector-python
+        pip install pipenv pytest pylint black requests signalrcore mysql-connector-python requests
     - name: Lint with pylint
       run: pylint $(git ls-files '*.py')
     - name: Format with black
