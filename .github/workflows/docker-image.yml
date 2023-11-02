@@ -44,5 +44,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/oxygencs:${{ toJson(steps.meta.outputs.labels)['org.opencontainers.image.created'] }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/oxygencs:${{ toJson(steps.meta.outputs.labels)[0] }}
           labels: ${{ steps.meta.outputs.labels }}
