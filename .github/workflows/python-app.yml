@@ -35,3 +35,9 @@ jobs:
     #- name: Test with pytest
       #run: |
         #pytest
+    - name: Get PR information only if it is accepted to base main
+      id: pr_info
+      run: |
+        if [ "${{ github.event_name }}" == "pull_request" ] && [ "${{ github.event.action }}" == "closed" ] && [ "${{ github.event.pull_request.base.ref }}" == "main" ]; then
+          echo "::set-output name=VERSION::${{ github.event.pull_request.head.ref }}"
+        fi
