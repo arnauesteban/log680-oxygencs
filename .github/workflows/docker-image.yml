@@ -25,6 +25,10 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
       
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
@@ -44,5 +48,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/oxygencs:${{ toJson(steps.meta.outputs.labels)[0] }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/oxygencs:latest, ${{ secrets.DOCKER_USERNAME }}/oxygencs:${{ steps.date.outputs.date }}
           labels: ${{ steps.meta.outputs.labels }}
