@@ -7,4 +7,3 @@ black
 requests
 signalrcore
 mysql-connector-python
-requests
