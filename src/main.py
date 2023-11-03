@@ -154,6 +154,6 @@ class Main:
 
 
 if __name__ == "__main__":
-    # comment
+    # Test
     main = Main()
     main.start()
