@@ -1,4 +1,5 @@
 import pytest
+from src.main import Main
 
 
 # Test unitaire pour vérifier que send_event_to_database()
@@ -26,4 +27,5 @@ def test_send_event_to_database(main_instance):
 
 
 if __name__ == "__main__":
-    pytest.main()
+    main = Main()
+    test_send_event_to_database(main)
