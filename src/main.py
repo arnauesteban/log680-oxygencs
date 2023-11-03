@@ -154,5 +154,6 @@ class Main:
 
 
 if __name__ == "__main__":
+    # comment
     main = Main()
     main.start()
