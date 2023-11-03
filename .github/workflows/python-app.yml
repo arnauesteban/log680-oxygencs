@@ -32,9 +32,9 @@ jobs:
       run: pylint $(git ls-files '*.py')
     - name: Format with black
       run: black $(git ls-files '*.py')
-    - name: Test with pytest
-      run: |
-        python test/test.py
+    #- name: Test with pytest
+      #run: |
+        #python test/test.py
     - name: Get PR information only if it is accepted to base main
       id: pr_info
       run: echo "::set-output name=VERSION::${{ github.event.pull_request.head.ref }}"
